@@ -42,18 +42,18 @@ npm_engine=$(package_json ".engines.npm")
 npm_previous=$(file_contents "$cache_dir/node/npm-version")
 
 # How does this app start?
-if test -f $build_dir/Procfile; then start_method="Procfile"
-elif [[ $(package_json ".scripts.start") != "" ]]; then start_method="npm start"
-elif [ -f $build_dir/server.js ]; then start_method="server.js"
-else start_method=""
-fi
+# if test -f $build_dir/Procfile; then start_method="Procfile"
+# elif [[ $(package_json ".scripts.start") != "" ]]; then start_method="npm start"
+# elif [ -f $build_dir/server.js ]; then start_method="server.js"
+# else start_method=""
+# fi
+start_method="meteor run"
 
 # What's the source-of-truth for node_modules?
-if test -d $build_dir/node_modules; then modules_source="prebuilt"
-elif test -f $build_dir/npm-shrinkwrap.json; then modules_source="npm-shrinkwrap.json"
-elif test -f $build_dir/package.json; then modules_source="package.json"
-else modules_source=""
-fi
+# if test -d $build_dir/node_modules; then modules_source="prebuilt"
+# elif test -f $build_dir/npm-shrinkwrap.json; then modules_source="npm-shrinkwrap.json"
+# elif test -f $build_dir/package.json; then modules_source="package.json"
+modules_source="package.json"
 
 # What does our cache look like?
 test -d $cache_dir/node/node_modules && modules_cached=true || modules_cached=false
